@@ -1,6 +1,7 @@
 import math
 import numpy as np
 import tkinter as tk
+import cexprtk
 
 window = tk.Tk()
 canvas = tk.Canvas(window, width=1300, height=800)
@@ -8,6 +9,12 @@ originx = 650
 originy = 400
 global rotation; rotation = 0
 global zoom; zoom = 130
+st = cexprtk.Symbol_Table({'x' : 0.0}, add_constants=True)
+expression = cexprtk.Expression("sin(x)", st)
+
+def change_function(expstr):
+    global expression
+    expression = cexprtk.Expression(expstr, st)
 
 def rot_x(rotrad):
     return np.array(
@@ -84,7 +91,8 @@ def graphsin3d(start, end):
 def graphsin3d_fast(rangex, resolution):
     for xres in range(-(rangex * resolution)//2 , (rangex * resolution)//2):
         x = xres / resolution
-        y = math.sin(x)
+        st.variables['x'] = x;
+        y = expression()
         #print(str(x) + ", " + str(y))
         pos = np.array([
             [x], [y], [0]
