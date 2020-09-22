@@ -4,13 +4,33 @@ import tkinter as tk
 import cexprtk
 
 window = tk.Tk()
-canvas = tk.Canvas(window, width=1300, height=800)
+canvasframe = tk.Frame(window, width=1300, height=800)
+canvas = tk.Canvas(canvasframe, width=1300, height=800)
 originx = 650
 originy = 400
 global rotation; rotation = 0
 global zoom; zoom = 130
 st = cexprtk.Symbol_Table({'x' : 0.0}, add_constants=True)
 expression = cexprtk.Expression("sin(x)", st)
+
+def init():
+    window.geometry('1600x800')
+    window.title("3DPhys")
+
+    canvas.pack(side=tk.TOP, anchor=tk.NW)
+    canvasframe.pack(side='left', anchor=tk.NW)
+    canvas.create_rectangle(0, 0, 1300, 800, fill='#18466b')
+
+    buttonsframe = tk.Frame(window, width=300, height=800, background='#EE0022')
+    buttonsframe.pack(side='right')
+
+    buttonsframe.columnconfigure(0, weight=1)
+    buttonsframe.columnconfigure(1, weight=3)
+
+    label1 = tk.Label(buttonsframe, text="y = ", relief=tk.SUNKEN,borderwidth=1,bg="red")
+    label1.grid(column="1", row="0")
+    entry1 = tk.Entry(buttonsframe, text="sin(x)")
+    entry1.grid(column="2", row = "0")
 
 def change_function(expstr):
     global expression
@@ -42,12 +62,6 @@ def rot_z(rotrad):
             [0, 0, 1]
         ]
     )
-
-def init():
-    window.geometry('1600x800')
-    window.title("Physics")
-    canvas.pack(side=tk.TOP, anchor=tk.NW)
-    canvas.create_rectangle(0, 0, 1300, 800, fill='#18466b')
 
 def cross():
     canvas.create_line(0, 400, 1300, 400, fill='#234764')
