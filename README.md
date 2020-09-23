@@ -9,6 +9,10 @@ Sacrifices framerate for easy to understand and implementable code.
 
 *TODO:
 - Add math interpeter that is quick on the right side
+- GRID TKINTER usage
+
+Once the basic fundamentals are programmed:
+
 - Navier-Stokes
-- Wave animation
-- Space simulation
+- Wave animation (3D possible)
+- Space simulation (3D)
