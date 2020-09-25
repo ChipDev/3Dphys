@@ -6,6 +6,8 @@ import cexprtk
 window = tk.Tk()
 canvasframe = tk.Frame(window, width=1300, height=800)
 canvas = tk.Canvas(canvasframe, width=1300, height=800)
+buttonsframe = tk.Frame(window, width=300, height=800)
+entry1 = tk.Entry(buttonsframe, text="sin(x)", width=10)
 originx = 650
 originy = 400
 global rotation; rotation = 0
@@ -21,17 +23,22 @@ def init():
     canvasframe.pack(side='left', anchor=tk.NW)
     canvas.create_rectangle(0, 0, 1300, 800, fill='#18466b')
 
-    buttonsframe = tk.Frame(window, width=300, height=800)
     buttonsframe.pack(side='right')
+
     #Y = ENTRY#
     label1 = tk.Label(buttonsframe, text="y = ", width=10)
     label1.grid(column="1", row="0")
-    entry1 = tk.Entry(buttonsframe, text="sin(x)", width=10)
     entry1.grid(column="2", row = "0", ipadx=50)
     blank1 = tk.Label(buttonsframe, text=" ", width=5)
     blank1.grid(column="3", row="0")
 
     #CONFIRM BUTTON#
+    button1 = tk.Button(buttonsframe, text="Confirm", command=onConfirm)
+    button1.grid(column="1", row="1")
+
+def onConfirm():
+    if entry1.get() != "":
+        change_function(entry1.get())
 
 def change_function(expstr):
     global expression
@@ -145,6 +152,7 @@ def update():
     graphcube()
     graphsin3d_fast(15, 15)
     window.after(20, update)
+
 
 init()
 cross()
